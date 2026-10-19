@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pause Privacy Policy</title>
+<link rel="icon" href="img/icon.png">
+<style>
+  body { background: #0E0B1F; color: #fff; font: 17px/1.65 Inter, system-ui, sans-serif; margin: 0; }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 20px 80px; }
+  h1 { font: 900 40px ui-rounded, system-ui, sans-serif; margin: 0 0 6px; }
+  h2 { font: 800 22px ui-rounded, system-ui, sans-serif; margin: 36px 0 8px; }
+  p, li { color: rgba(255,255,255,.75); }
+  a { color: #8B7BFF; }
+  .date { color: rgba(255,255,255,.5); font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <p><a href="index.html">← Pause</a></p>
+  <h1>Privacy Policy</h1>
+  <p class="date">Last updated: October 19, 2026</p>
+
+  <p>Pause is built to know as little about you as possible. This page explains what the app and this website collect, and why.</p>
+
+  <h2>The apps you pick</h2>
+  <p>Pause uses Apple's Screen Time system to lock apps. When you pick apps, Apple gives Pause sealed tokens. Pause can use a token to lock an app, but it can't see the app's name or what you do in it. Your list never leaves your phone.</p>
+
+  <h2>The camera</h2>
+  <p>The camera checks your push-ups or that you're sitting still. This happens on your phone, as it happens. No photos or video are saved, uploaded or shared.</p>
+
+  <h2>What stays on your phone</h2>
+  <ul>
+    <li>Your time limit and unlock task</li>
+    <li>How many breaks you've done</li>
+    <li>Your quiz answers from setup</li>
+  </ul>
+
+  <h2>Payments</h2>
+  <p>Subscriptions are handled by Apple. Pause never sees your card details.</p>
+
+  <h2>This website</h2>
+  <p>If you join the waitlist, we store your email and which phone you use. We use it only to tell you about Pause. We may use the Meta Pixel to measure our ads. You can ask us to delete your email at any time.</p>
+
+  <h2>Children</h2>
+  <p>Pause is not meant for children under 13.</p>
+
+  <h2>Contact</h2>
+  <p>Questions or deletion requests: <a class="email" href="#">email us</a>.</p>
+</main>
+<script src="config.js"></script>
+<script>
+  const e = (window.PAUSE || {}).SUPPORT_EMAIL;
+  document.querySelectorAll("a.email").forEach(a => { if (e) { a.href = "mailto:" + e; a.textContent = e; } else { a.removeAttribute("href"); a.textContent = "(email coming soon)"; } });
+</script>
+</body>
+</html>

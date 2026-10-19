@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pause Support</title>
+<link rel="icon" href="img/icon.png">
+<style>
+  body { background: #0E0B1F; color: #fff; font: 17px/1.65 Inter, system-ui, sans-serif; margin: 0; }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 20px 80px; }
+  h1 { font: 900 40px ui-rounded, system-ui, sans-serif; margin: 0 0 6px; }
+  h2 { font: 800 22px ui-rounded, system-ui, sans-serif; margin: 36px 0 8px; }
+  p { color: rgba(255,255,255,.75); }
+  a { color: #8B7BFF; }
+</style>
+</head>
+<body>
+<main>
+  <p><a href="index.html">← Pause</a></p>
+  <h1>Support</h1>
+  <p>Stuck? Email <a class="email" href="#">us</a>. We usually reply within a day.</p>
+
+  <h2>My apps didn't lock</h2>
+  <p>Open Pause and check that you picked at least one app. Apple's usage timer can run a few minutes late. That comes from Apple, not Pause.</p>
+
+  <h2>The push-up counter missed reps</h2>
+  <p>Put your phone flat on the floor, screen up, right under your face. Use a bright room. Go all the way down so your face gets close to the phone.</p>
+
+  <h2>How do I turn Pause off?</h2>
+  <p>Remove your apps from the list in Pause. You can also go to Settings → Screen Time and turn off Pause's access.</p>
+
+  <h2>How do I cancel my subscription?</h2>
+  <p>Go to Settings → your name → Subscriptions → Pause → Cancel. Apple handles all billing.</p>
+</main>
+<script src="config.js"></script>
+<script>
+  const e = (window.PAUSE || {}).SUPPORT_EMAIL;
+  document.querySelectorAll("a.email").forEach(a => { if (e) { a.href = "mailto:" + e; a.textContent = e; } else { a.removeAttribute("href"); a.textContent = "(email coming soon)"; } });
+</script>
+</body>
+</html>

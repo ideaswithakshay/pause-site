@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pause: Scroll Less, Move More</title>
+<meta name="description" content="After 30 minutes on the apps you pick, Pause locks them. 10 push-ups or a minute of stillness unlocks them.">
+<meta property="og:title" content="Pause: Scroll Less, Move More">
+<meta property="og:description" content="Your apps lock after 30 minutes. 10 push-ups unlocks them.">
+<meta property="og:image" content="img/home.jpg">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0E0B1F; --surface: #1C1736; --surface2: #251E46;
+    --text: #FFFFFF; --sub: rgba(255,255,255,.66);
+    --a1: #8B7BFF; --a2: #4FD1FF;
+    --grad: linear-gradient(135deg, var(--a1), var(--a2));
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font: 17px/1.55 Inter, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  h1, h2, h3, .display { font-family: Nunito, ui-rounded, system-ui, sans-serif; font-weight: 900; letter-spacing: -.02em; line-height: 1.08; }
+  a { color: inherit; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+  .glow { position: absolute; inset: -200px 0 auto; height: 700px; pointer-events: none;
+    background: radial-gradient(600px 380px at 50% 30%, rgba(139,123,255,.35), transparent 70%); }
+
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; position: relative; z-index: 2; }
+  .brand { display: flex; gap: 10px; align-items: center; font: 900 22px Nunito, sans-serif; text-decoration: none; }
+  .brand img { width: 34px; height: 34px; border-radius: 9px; }
+  .nav-cta { font-weight: 600; font-size: 15px; text-decoration: none; padding: 9px 16px; border-radius: 99px; background: var(--surface); }
+
+  .hero { position: relative; padding: 40px 0 80px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+  .pill { display: inline-block; font-size: 14px; font-weight: 600; padding: 6px 14px; border-radius: 99px; background: var(--surface); color: var(--sub); margin-bottom: 20px; }
+  .hero h1 { font-size: clamp(44px, 7vw, 76px); }
+  .hero h1 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero p.lead { font-size: 20px; color: var(--sub); margin: 20px 0 30px; max-width: 520px; }
+
+  form.waitlist { display: flex; flex-direction: column; gap: 12px; max-width: 460px; }
+  .row { display: flex; gap: 10px; }
+  input[type=email] { flex: 1; min-width: 0; height: 58px; padding: 0 20px; border-radius: 99px; border: 1px solid rgba(255,255,255,.12);
+    background: var(--surface); color: var(--text); font: 500 16px Inter, sans-serif; outline: none; }
+  input[type=email]:focus { border-color: var(--a1); }
+  .phones { display: flex; gap: 8px; font-size: 14px; color: var(--sub); align-items: center; flex-wrap: wrap; }
+  .phones label { cursor: pointer; padding: 7px 14px; border-radius: 99px; background: var(--surface); border: 1px solid transparent; }
+  .phones input { display: none; }
+  .phones input:checked + span { color: var(--text); }
+  .phones label:has(input:checked) { border-color: var(--a1); }
+  .btn { height: 58px; padding: 0 28px; border: 0; border-radius: 99px; background: var(--grad); color: #0E0B1F;
+    font: 800 17px Nunito, sans-serif; cursor: pointer; box-shadow: 0 10px 30px rgba(139,123,255,.4); white-space: nowrap; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+  .btn:active { transform: scale(.97); }
+  .fine { font-size: 13px; color: var(--sub); }
+  .thanks { display: none; padding: 18px 20px; border-radius: 20px; background: var(--surface); max-width: 460px; }
+  .thanks b { font-family: Nunito, sans-serif; font-size: 20px; }
+
+  .phone { width: 100%; max-width: 330px; margin: 0 auto; border-radius: 48px; padding: 10px; background: #000;
+    box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.08); }
+  .phone img { width: 100%; display: block; border-radius: 39px; }
+  .hero .phone { transform: rotate(3deg); }
+
+  section { padding: 90px 0; }
+  .eyebrow { color: var(--a1); font-weight: 700; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px; }
+  h2 { font-size: clamp(34px, 5vw, 52px); margin-bottom: 16px; }
+  .sub { color: var(--sub); font-size: 19px; max-width: 620px; }
+
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 44px; }
+  .card { background: var(--surface); border-radius: 28px; padding: 28px; }
+  .card .n { width: 42px; height: 42px; border-radius: 50%; background: var(--grad); color: #0E0B1F; font: 900 20px Nunito, sans-serif;
+    display: grid; place-items: center; margin-bottom: 18px; }
+  .card h3 { font-size: 24px; margin-bottom: 8px; }
+  .card p { color: var(--sub); }
+
+  .shield { margin-top: 44px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 40px; align-items: center; }
+  .shield-mock { max-width: 330px; margin: 0 auto; border-radius: 48px; padding: 10px; background: #000; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+  .shield-screen { border-radius: 39px; aspect-ratio: 402/874; padding: 90px 26px 40px; text-align: center;
+    background: radial-gradient(400px 300px at 50% 20%, rgba(139,123,255,.35), transparent), #0E0B1F; display: flex; flex-direction: column; }
+  .shield-screen .icon { width: 74px; height: 74px; border-radius: 50%; background: var(--grad); margin: 0 auto 22px; display: grid; place-items: center; }
+  .shield-screen .icon::before { content: ""; width: 20px; height: 26px; border-left: 7px solid #0E0B1F; border-right: 7px solid #0E0B1F; }
+  .shield-screen h3 { font-size: 27px; margin-bottom: 12px; }
+  .shield-screen p { color: var(--sub); font-size: 14px; }
+  .shield-screen .q { margin-top: 14px; font-style: italic; color: var(--text); }
+  .shield-screen .b1 { margin-top: auto; padding: 15px; border-radius: 16px; background: var(--a1); color: #0E0B1F; font: 800 16px Nunito, sans-serif; }
+  .shield-screen .b2 { margin-top: 12px; font-size: 14px; color: var(--sub); }
+
+  .tasks { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 36px; }
+  .task { display: flex; gap: 16px; align-items: center; }
+  .task .e { font-size: 38px; width: 64px; height: 64px; border-radius: 18px; background: var(--surface2); display: grid; place-items: center; flex: none; }
+
+  .math { margin-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .math .big { font: 900 48px Nunito, sans-serif; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .math .note { margin-top: 18px; color: var(--sub); font-size: 14px; }
+
+  .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 44px; }
+  .gallery .phone { border-radius: 36px; padding: 7px; }
+  .gallery .phone img { border-radius: 30px; }
+  .gallery figcaption { text-align: center; color: var(--sub); font-size: 14px; margin-top: 12px; }
+
+  .faq { margin-top: 36px; display: grid; gap: 12px; max-width: 780px; }
+  details { background: var(--surface); border-radius: 20px; padding: 20px 24px; }
+  summary { cursor: pointer; font: 800 19px Nunito, sans-serif; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+  summary::after { content: "+"; color: var(--a1); font-size: 24px; line-height: 1; }
+  details[open] summary::after { content: "–"; }
+  details p { color: var(--sub); margin-top: 10px; }
+
+  .final { text-align: center; position: relative; }
+  .final h2 { max-width: 760px; margin: 0 auto 16px; }
+  .final form.waitlist, .final .thanks { margin: 30px auto 0; }
+  .final .phones { justify-content: center; }
+
+  footer { padding: 40px 0 60px; color: var(--sub); font-size: 14px; display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-between; border-top: 1px solid rgba(255,255,255,.08); }
+  footer nav { padding: 0; gap: 20px; }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; padding-top: 20px; text-align: left; }
+    .hero .phone { max-width: 270px; transform: none; }
+    .steps, .math { grid-template-columns: 1fr; }
+    .shield { grid-template-columns: 1fr; }
+    .tasks { grid-template-columns: 1fr; }
+    .gallery { grid-template-columns: repeat(2, 1fr); }
+    section { padding: 64px 0; }
+  }
+  @media (max-width: 480px) {
+    .row { flex-direction: column; }
+    .btn { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+
+<div class="wrap">
+  <nav>
+    <a class="brand" href="#"><img src="img/icon.png" alt="">Pause</a>
+    <a class="nav-cta" href="#join">Join the waitlist</a>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <span class="pill">⏸️ Coming soon to iPhone</span>
+      <h1>Scroll less.<br><span class="grad">Move more.</span></h1>
+      <p class="lead">After 30 minutes on the apps you pick, Pause locks them. Do 10 push-ups or sit still for a minute, and you get another 30.</p>
+      <form class="waitlist" data-where="hero">
+        <div class="row">
+          <input type="email" name="email" placeholder="Your email" required autocomplete="email">
+          <button class="btn" type="submit">Get early access</button>
+        </div>
+        <div class="phones">
+          <span>My phone:</span>
+          <label><input type="radio" name="phone" value="iphone" checked><span>iPhone</span></label>
+          <label><input type="radio" name="phone" value="android"><span>Android</span></label>
+        </div>
+        <span class="fine">Free for the first 3 days when it launches. No spam.</span>
+      </form>
+      <div class="thanks"><b>You're on the list. 🎉</b><br><span class="fine">We'll email you the day Pause goes live.</span></div>
+    </div>
+    <div class="phone"><img src="img/home.jpg" alt="The Pause home screen showing your apps, time limit and unlock task"></div>
+  </header>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">How it works</div>
+    <h2>You set the limit. Pause holds you to it.</h2>
+    <p class="sub">Pause doesn't ban your apps. It puts a short break between you and your next 30 minutes.</p>
+    <div class="steps">
+      <div class="card"><div class="n">1</div><h3>Pick your apps</h3><p>Instagram, TikTok, YouTube, games, anything. Apple keeps your list private. Even Pause can't see it.</p></div>
+      <div class="card"><div class="n">2</div><h3>Pick your limit</h3><p>15, 30, 45 or 60 minutes. When time's up, those apps lock.</p></div>
+      <div class="card"><div class="n">3</div><h3>Earn it back</h3><p>10 push-ups or 1 minute of stillness, checked by your camera. Then you get another round.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap shield">
+    <div class="shield-mock">
+      <div class="shield-screen">
+        <div class="icon"></div>
+        <h3>Time for a Pause</h3>
+        <p>You've had your 30 minutes on Instagram. Do a quick break in Pause to unlock it.</p>
+        <p class="q">You set this limit. Past you was right.</p>
+        <div class="b1">Unlock with a break</div>
+        <div class="b2">Close</div>
+      </div>
+    </div>
+    <div>
+      <div class="eyebrow">The lock screen</div>
+      <h2>Thumb on autopilot? This stops it.</h2>
+      <p class="sub">When your time runs out, the app won't open. You see this screen instead. One tap takes you to your break.</p>
+      <div class="tasks">
+        <div class="task"><div class="e">💪</div><div><h3>10 push-ups</h3><p class="fine">Phone on the floor. Your camera counts each rep.</p></div></div>
+        <div class="task"><div class="e">🧘</div><div><h3>1 minute still</h3><p class="fine">Sit with your face in the circle and breathe.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">The math</div>
+    <h2>Cut your scrolling by a third.</h2>
+    <p class="sub">Say you're on your phone 3 hours a day. Here's what one-third less adds up to.</p>
+    <div class="math">
+      <div class="card"><div class="big">1 hour</div><p>a day back.<br>3 hours ÷ 3</p></div>
+      <div class="card"><div class="big">365 hours</div><p>a year back.<br>1 hour × 365 days</p></div>
+      <div class="card"><div class="big">15 days</div><p>of waking life.<br>365 hours ÷ 24</p></div>
+    </div>
+    <p class="math note">Example numbers. Your own screen time is in Settings → Screen Time.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Inside the app</div>
+    <h2>Simple on purpose.</h2>
+    <div class="gallery">
+      <figure><div class="phone"><img src="img/intro.jpg" alt="Pause welcome screen" loading="lazy"></div><figcaption>Start</figcaption></figure>
+      <figure><div class="phone"><img src="img/projection.jpg" alt="Your projected hours saved" loading="lazy"></div><figcaption>See your time back</figcaption></figure>
+      <figure><div class="phone"><img src="img/home.jpg" alt="Pause home screen" loading="lazy"></div><figcaption>Set your limit</figcaption></figure>
+      <figure><div class="phone"><img src="img/pushups.jpg" alt="Push-up counter" loading="lazy"></div><figcaption>Earn it back</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Questions</div>
+    <h2>Good questions.</h2>
+    <div class="faq">
+      <details><summary>Can Pause see which apps I use?</summary><p>No. Apple's Screen Time system handles that. Pause gets a sealed token for each app you pick. It can lock that app, but it can't read the app's name or what you did in it.</p></details>
+      <details><summary>Does the camera record me?</summary><p>No. Your phone checks your push-ups or stillness on the spot. Nothing is saved or uploaded.</p></details>
+      <details><summary>Can I turn it off?</summary><p>Yes, anytime. You can remove an app from the list or switch Pause off in the app. Pause is a speed bump, not a jail.</p></details>
+      <details><summary>Is it on Android?</summary><p>iPhone first. If you're on Android, join the waitlist anyway and pick Android. That tells us how many people want it.</p></details>
+      <details><summary>How much will it cost?</summary><p>The first 3 days are free. After that it's a yearly plan. Waitlist members hear about the launch price first.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="join">
+  <div class="glow" style="top:-100px"></div>
+  <div class="wrap">
+    <h2>Don't wait until New Year's to start your resolution.</h2>
+    <p class="sub" style="margin:0 auto">Join the waitlist. Be first to try Pause.</p>
+    <form class="waitlist" data-where="footer">
+      <div class="row">
+        <input type="email" name="email" placeholder="Your email" required autocomplete="email">
+        <button class="btn" type="submit">Get early access</button>
+      </div>
+      <div class="phones">
+        <span>My phone:</span>
+        <label><input type="radio" name="phone" value="iphone" checked><span>iPhone</span></label>
+        <label><input type="radio" name="phone" value="android"><span>Android</span></label>
+      </div>
+    </form>
+    <div class="thanks"><b>You're on the list. 🎉</b><br><span class="fine">We'll email you the day Pause goes live.</span></div>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <span>© 2026 Pause</span>
+    <nav><a href="privacy.html">Privacy</a><a href="support.html">Support</a></nav>
+  </footer>
+</div>
+
+<script src="config.js"></script>
+<script>
+(function () {
+  const C = window.PAUSE || {};
+  const get = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const set = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+  let vid = get("pz_vid");
+  if (!vid) { vid = Math.random().toString(36).slice(2, 10); set("pz_vid", vid); }
+  const utm = Object.fromEntries(new URLSearchParams(location.search));
+  const isAndroid = /android/i.test(navigator.userAgent);
+
+  if (C.META_PIXEL_ID) {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', C.META_PIXEL_ID); fbq('track', 'PageView');
+  }
+
+  // Every visit and signup is logged, so you can count iPhone vs Android demand.
+  function send(event, data) {
+    const row = Object.assign({ event, vid, at: new Date().toISOString(), utm,
+      device: isAndroid ? "android" : (/iphone|ipad/i.test(navigator.userAgent) ? "iphone" : "other") }, data || {});
+    const log = JSON.parse(get("pz_log") || "[]"); log.push(row); set("pz_log", JSON.stringify(log));
+    if (C.GOOGLE_FORM) {
+      // Google Forms accepts a plain form post. "no-cors" means we can't read
+      // the reply, but the row still lands in the sheet.
+      const F = C.FORM_FIELDS, body = new URLSearchParams();
+      body.set(F.event, row.event);
+      body.set(F.email, row.email || "");
+      body.set(F.phone, row.phone || "");
+      body.set(F.details, JSON.stringify({ device: row.device, where: row.where, utm: row.utm, vid: row.vid, ref: document.referrer }));
+      fetch(C.GOOGLE_FORM, { method: "POST", mode: "no-cors", body, keepalive: true }).catch(() => {});
+    }
+  }
+  send("visit");
+
+  document.querySelectorAll("form.waitlist").forEach(form => {
+    // Android visitors: pre-pick Android so the count is honest.
+    if (isAndroid) form.querySelector('input[value=android]').checked = true;
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      send("signup", { email: fd.get("email"), phone: fd.get("phone"), where: form.dataset.where });
+      if (window.fbq) fbq("track", "Lead");
+      document.querySelectorAll("form.waitlist").forEach(f => f.style.display = "none");
+      document.querySelectorAll(".thanks").forEach(t => t.style.display = "block");
+    });
+  });
+
+  // Once the app is live, swap the waitlist for an App Store button.
+  if (C.APP_STORE_URL) {
+    document.querySelectorAll("form.waitlist").forEach(f => {
+      const a = document.createElement("a");
+      a.className = "btn"; a.href = C.APP_STORE_URL; a.textContent = "Download on the App Store";
+      a.onclick = () => send("store_click");
+      f.replaceWith(a);
+    });
+    document.querySelector(".pill").textContent = "⏸️ Now on iPhone";
+  }
+})();
+</script>
+</body>
+</html>
