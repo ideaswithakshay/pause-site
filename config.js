@@ -17,5 +17,5 @@ window.PAUSE = {
   APP_STORE_URL: "",
 
   // Contact email shown on the support and privacy pages.
-  SUPPORT_EMAIL: "",  // TODO: add a real support email before App Store review,
+  SUPPORT_EMAIL: "aramach1194@gmail.com",
 };
